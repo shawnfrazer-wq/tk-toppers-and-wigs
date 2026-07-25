@@ -1,0 +1,93 @@
+<header class="site-header">
+  <div class="container site-header__inner">
+
+    <a href="/" class="site-header__logo" aria-label="Tatiana Karelina home">
+      <img src="/brand/tk-logo.png" alt="Tatiana Karelina" width="1855" height="549">
+    </a>
+
+    <!-- Desktop menu -->
+    <nav class="nav" aria-label="Primary">
+      <div class="nav__dropdown-wrap">
+        <a href="/toppers/" class="nav__item">
+          TOPPERS
+          <span class="nav__caret" aria-hidden="true">▾</span>
+        </a>
+        <div class="nav__dropdown" role="menu" aria-label="Toppers">
+          <a href="/toppers/classic-topper.html" role="menuitem">CLASSIC TOPPER</a>
+          <a href="/toppers/frontal-topper.html" role="menuitem">FRONTAL TOPPER</a>
+          <a href="/toppers/halo-topper.html" role="menuitem">HALO TOPPER</a>
+        </div>
+      </div>
+      <a href="/wigs/medical-wigs.html" class="nav__item">MEDICAL WIGS</a>
+      <a href="/prices.html" class="nav__item">PRICES</a>
+      <a href="/before-and-afters.html" class="nav__item">BEFORE AND AFTERS</a>
+      <a href="/blog/" class="nav__item">BLOG</a>
+      <a href="/contact.html" class="nav__item">CONTACT</a>
+    </nav>
+
+    <!-- Desktop actions -->
+    <div class="header-actions">
+      <a href="/contact.html" class="btn btn--solid">BOOK APPOINTMENT</a>
+      <a href="tel:+442036451761" class="phone-pill">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 006 6l1.5-2 4 1.5v3c0 1-.8 1.9-1.9 1.8C11.7 22 2 12.3 1.7 4.4 1.6 3.3 2.5 2.5 3.5 2.5"
+            stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+        +44 (0) 203 645 1761
+      </a>
+    </div>
+
+    <!-- Mobile actions -->
+    <div class="mobile-actions">
+      <a href="tel:+442036451761" class="icon-btn" aria-label="Call us">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+          <path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 006 6l1.5-2 4 1.5v3c0 1-.8 1.9-1.9 1.8C11.7 22 2 12.3 1.7 4.4 1.6 3.3 2.5 2.5 3.5 2.5"
+            stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="/contact.html" class="mobile-book">BOOK</a>
+      <button
+        type="button"
+        class="hamburger"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-mobile-menu-toggle>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Mobile menu panel -->
+  <nav id="mobile-menu" class="mobile-menu" data-open="false" aria-label="Mobile">
+    <div class="container">
+      <div class="mobile-menu__item">
+        <a href="/toppers/">TOPPERS</a>
+        <div class="mobile-menu__children">
+          <a href="/toppers/classic-topper.html">CLASSIC TOPPER</a>
+          <a href="/toppers/frontal-topper.html">FRONTAL TOPPER</a>
+          <a href="/toppers/halo-topper.html">HALO TOPPER</a>
+        </div>
+      </div>
+      <div class="mobile-menu__item"><a href="/wigs/medical-wigs.html">MEDICAL WIGS</a></div>
+      <div class="mobile-menu__item"><a href="/prices.html">PRICES</a></div>
+      <div class="mobile-menu__item"><a href="/before-and-afters.html">BEFORE AND AFTERS</a></div>
+      <div class="mobile-menu__item"><a href="/blog/">BLOG</a></div>
+      <div class="mobile-menu__item"><a href="/contact.html">CONTACT</a></div>
+      <p class="mobile-menu__strap">Russian hair, made to measure, London, Manchester &amp; worldwide</p>
+    </div>
+  </nav>
+</header>
+
+<script>
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-mobile-menu-toggle]");
+    if (!btn) return;
+    var panel = document.getElementById("mobile-menu");
+    var open  = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", (!open).toString());
+    btn.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+    panel.setAttribute("data-open", (!open).toString());
+  });
+</script>

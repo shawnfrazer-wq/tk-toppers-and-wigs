@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /blog/article-template.html
+
+Sitemap: https://tatianakarelinatoppersandwigs.com/sitemap.xml

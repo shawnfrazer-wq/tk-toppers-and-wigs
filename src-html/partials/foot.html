@@ -1,0 +1,54 @@
+<script>
+/* Before/after carousel — TK-exact: desktop 4 identical thumbnails per view
+   with prev/next arrows, mobile 1 per view swipeable.
+   Rows authored as plain .ba-row are upgraded automatically: wrapped in
+   .ba-carousel and given arrow buttons. Rows already inside a hand-authored
+   .ba-carousel are bound as-is. */
+(function () {
+  var ARROW_SVG = {
+    prev: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 2 4 8l6 6"/></svg>',
+    next: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 2 6 6-6 6"/></svg>'
+  };
+  document.querySelectorAll('.ba-row').forEach(function (row) {
+    var carousel = row.closest('.ba-carousel');
+    if (!carousel) {
+      carousel = document.createElement('div');
+      carousel.className = 'ba-carousel';
+      row.parentNode.insertBefore(carousel, row);
+      var prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.className = 'ba-carousel__arrow ba-carousel__arrow--prev';
+      prevBtn.setAttribute('aria-label', 'Previous before and after');
+      prevBtn.innerHTML = ARROW_SVG.prev;
+      var nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.className = 'ba-carousel__arrow ba-carousel__arrow--next';
+      nextBtn.setAttribute('aria-label', 'Next before and after');
+      nextBtn.innerHTML = ARROW_SVG.next;
+      carousel.appendChild(prevBtn);
+      carousel.appendChild(row);
+      carousel.appendChild(nextBtn);
+    }
+    var prev = carousel.querySelector('.ba-carousel__arrow--prev');
+    var next = carousel.querySelector('.ba-carousel__arrow--next');
+    if (!prev || !next) return;
+    function step() {
+      var card = row.querySelector('.ba-card');
+      if (!card) return 0;
+      var gap = parseFloat(getComputedStyle(row).columnGap || getComputedStyle(row).gap) || 20;
+      return card.getBoundingClientRect().width + gap;
+    }
+    function update() {
+      prev.disabled = row.scrollLeft <= 2;
+      next.disabled = row.scrollLeft >= row.scrollWidth - row.clientWidth - 2;
+    }
+    prev.addEventListener('click', function () { row.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { row.scrollBy({ left: step(), behavior: 'smooth' }); });
+    row.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+})();
+</script>
+</body>
+</html>

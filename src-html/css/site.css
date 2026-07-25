@@ -1,0 +1,1607 @@
+/* ============================================================================
+   Tatiana Karelina Toppers & Wigs — site.css
+   Static HTML build, single stylesheet, no framework.
+
+   Deliverable is handed to Pontifex for WordPress conversion. Keep this file
+   readable — every section is labelled and uses cascade-friendly ordering.
+   ========================================================================= */
+
+/* ---------- 1. Self-hosted fonts — matched to tatianakarelina.co.uk's live
+   rendered stack (verified via computed styles on the real site):
+   display serif headings = Butler (licensed; Playfair Display substitute
+   at matching 400 weight, TK never uses 500/700 on headings) — nav, body
+   copy, footer = Montserrat — buttons, eyebrows/microlabels = Poppins. */
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("../fonts/playfair-display-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/montserrat-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/montserrat-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/montserrat-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/poppins-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/poppins-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/poppins-600.woff2") format("woff2");
+}
+
+/* ---------- 2. Brand tokens (exact TK hex, from Firecrawl of tatianakarelina.co.uk) */
+
+:root {
+  --c-black: #000000;                /* footer band, contact enquiry panel, primary CTAs */
+  --c-ink: #202020;                  /* headings */
+  --c-body: #333333;                 /* paragraph text */
+  --c-paper: #ffffff;                /* dominant page background */
+  --c-navy: #112337;                 /* dark accent */
+  --c-taupe: #a3a29e;                /* warm neutral */
+  --c-slate: #686e77;                /* muted grey — eyebrows, hairline text */
+  --c-line: #eeeeee;                 /* light dividers */
+  --c-line-2: #ebebeb;               /* TK exact grey band value, verified live on tatianakarelina.co.uk (Instagram section) */
+  --c-grey-300: #d4d4d4;
+
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-accent: "Poppins", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+
+  /* Layout constants — desktop density standard */
+  --container-max: 1280px;           /* max-w-7xl equivalent */
+  --container-pad-x: 1.5rem;         /* 24px — mobile */
+  --container-pad-x-lg: 2rem;        /* 32px — desktop */
+
+  /* Section vertical rhythm — matches TK's tighter density. TK content
+     sections use ~40-72px block padding, not 56-104px. */
+  --section-pad-y: clamp(2.5rem, 3vw + 1.25rem, 4.5rem);
+}
+
+/* ---------- 3. Reset + base */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--c-paper);
+  color: var(--c-body);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg, video { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  color: #000000;                    /* TK uses pure #000 on section headings */
+  font-weight: 400;                  /* TK: 400, not 500 */
+  line-height: 1.39;                 /* TK: 1.389em */
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+  margin: 0;
+}
+/* TK homepage heading sizes read from Elementor CSS:
+   desktop 36px / mid 27px / mobile 25px. clamp() interpolates cleanly. */
+h1 { font-size: clamp(1.75rem, 0.9rem + 2.5vw, 2.5rem); line-height: 1.25; }
+h2 { font-size: clamp(1.5625rem, 0.9rem + 2vw, 2.25rem); }
+h3 { font-size: 1.125rem; line-height: 1.35; font-weight: 500; }
+h4 { font-size: 1rem; line-height: 1.35; font-weight: 500; }
+
+p {
+  margin: 0;
+  /* Shawn standard (AGENTS.md): fully justified body, NEVER hyphenate.
+     Applies everywhere; short single-line paragraphs (eyebrows, labels)
+     are unaffected because justify never stretches the last line. */
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
+  -webkit-hyphens: none;
+  text-wrap: pretty;
+}
+p + p { margin-top: 1rem; }
+
+ul, ol { margin: 0; padding: 0; }
+figure { margin: 0; }
+
+/* Screen-reader-only helper */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* Universal focus ring — never lose keyboard focus (impeccable audit A1) */
+:focus-visible {
+  outline: 2px solid var(--c-ink);
+  outline-offset: 2px;
+}
+
+/* ---------- 4. Layout primitives */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad-x);
+}
+@media (min-width: 1024px) {
+  .container { padding-inline: var(--container-pad-x-lg); }
+}
+
+.section {
+  padding-block: var(--section-pad-y);
+}
+.section--paper { background: var(--c-paper); }
+.section--ivory { background: var(--c-line-2); }  /* TK treatment: light grey accent band, not ivory */
+.section--line-2 { background: var(--c-line-2); }
+.section--black { background: var(--c-black); color: var(--c-paper); }
+
+/* Full-bleed wrapper: use for hero, trust strip, before-and-afters,
+   background bands. Child gets edge-to-edge width. */
+.full-bleed { width: 100vw; margin-left: 50%; transform: translateX(-50%); }
+
+/* ---------- 5. Eyebrow (TK exact values)
+
+   TK stack: EYEBROW → 38px hairline → main heading. Everything pulled tight
+   with negative margins (~-17px each step) so the three lines feel like one
+   composed unit, not three floated elements.
+
+   Read from tatianakarelina.co.uk Elementor CSS (2026-07-17):
+   - Eyebrow: 13px desktop / 12px mid / 11px mobile, Poppins-analog (our sans),
+     400 weight, uppercase, colour #000, no tracking (Poppins caps read tight).
+   - Divider: 38px wide, 1px solid #000, sits ~-17px above the h2, ~2px pad.
+   - H2:      36px desktop / 27px mid / 25px mobile, serif 400, line-height 1.39.
+*/
+
+.eyebrow {
+  font-family: var(--font-accent);   /* TK: Poppins on eyebrow/microlabels */
+  font-size: 0.8125rem;              /* 13px desktop */
+  font-weight: 400;
+  letter-spacing: normal;            /* TK: verified live — eyebrows use normal tracking, not wide-tracked */
+  text-transform: uppercase;
+  color: #000000;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+}
+@media (max-width: 1023.98px) { .eyebrow { font-size: 0.75rem; } }   /* 12px */
+@media (max-width: 639.98px)  { .eyebrow { font-size: 0.6875rem; } } /* 11px */
+
+.eyebrow--left { text-align: left; }
+.eyebrow--paper { color: var(--c-paper); }
+
+/* Short hairline rule beneath the eyebrow — TK: 38px wide, 1px black */
+.eyebrow-rule {
+  display: block;
+  width: 38px;
+  height: 1px;
+  background: #000000;
+  margin: 0.6rem auto 0.35rem;
+}
+.eyebrow-rule--left { margin-inline: 0; }
+.eyebrow-rule--paper { background: rgba(255, 255, 255, 0.75); }
+
+/* Convenience header block: eyebrow + rule + heading (centred by default) */
+.section-heading { text-align: center; }
+.section-heading .eyebrow { margin-bottom: 0; }
+.section-heading h2 { margin-top: 0.25rem; }         /* TK pulls the h2 tight to the rule */
+.section-heading--left { text-align: left; }
+.section-heading--left .eyebrow-rule { margin-inline: 0; }
+
+/* ---------- 6. Buttons (TK: black solid + outlined-on-paper) */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.75rem;                    /* 44px — accessibility min tap */
+  padding-inline: 1.5rem;
+  font-family: var(--font-accent);    /* TK: Poppins 600 on all buttons */
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 3px;
+  border: 1.5px solid var(--c-black);
+  transition: background-color 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.btn--solid  { background: var(--c-black); color: var(--c-paper); }
+.btn--solid:hover  { background: var(--c-ink); }
+.btn--outline { background: transparent; color: var(--c-ink); }
+.btn--outline:hover { background: var(--c-black); color: var(--c-paper); }
+
+/* Inverted (used on dark surfaces) */
+.btn--paper { background: var(--c-paper); color: var(--c-black); border-color: var(--c-paper); }
+.btn--paper:hover { background: transparent; color: var(--c-paper); }
+.btn--paper-outline {
+  background: transparent; color: var(--c-paper); border-color: var(--c-paper);
+}
+.btn--paper-outline:hover { background: var(--c-paper); color: var(--c-black); }
+
+/* ---------- 7. Nav (site header) */
+
+.site-header { background: var(--c-paper); }
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.25rem;
+}
+@media (min-width: 1024px) {
+  .site-header__inner { padding-block: 1.5rem; }
+}
+.site-header__logo img { height: 2.75rem; width: auto; }
+@media (min-width: 640px)  { .site-header__logo img { height: 3.5rem; } }
+@media (min-width: 1024px) { .site-header__logo img { height: 4rem; } }
+
+.nav { display: none; }
+@media (min-width: 1024px) {
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .nav__item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding-block: 0.5rem;
+    font-family: var(--font-sans);   /* TK: Montserrat 500, uppercase, nowrap */
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;           /* TK: verified live — nav items use ~0.4px tracking, not wide-tracked */
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--c-ink);
+  }
+  .nav__item:hover { color: var(--c-slate); }
+  .nav__caret { font-size: 0.6rem; color: var(--c-slate); }
+}
+
+/* Dropdown panel — TK style: clean white panel, no top border, soft shadow,
+   narrow (content-sized), CENTRED under the trigger, ALL CAPS items. */
+.nav__dropdown-wrap { position: relative; }
+.nav__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  background: var(--c-paper);
+  padding-block: 0.25rem;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+  z-index: 60;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s, visibility 0.15s;
+}
+.nav__dropdown-wrap:hover .nav__dropdown,
+.nav__dropdown-wrap:focus-within .nav__dropdown {
+  visibility: visible;
+  opacity: 1;
+}
+.nav__dropdown a {
+  display: block;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--c-body);
+}
+.nav__dropdown a:hover,
+.nav__dropdown a:focus-visible { background: var(--c-line-2); color: var(--c-ink); }
+
+/* Header right cluster */
+.header-actions { display: none; }
+@media (min-width: 1024px) {
+  .header-actions { display: flex; align-items: center; gap: 0.75rem; }
+}
+.phone-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  padding-inline: 1rem;
+  border: 1.5px solid var(--c-black);
+  border-radius: 3px;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: var(--c-ink);
+  transition: background-color 0.2s, color 0.2s;
+}
+.phone-pill:hover { background: var(--c-black); color: var(--c-paper); }
+.phone-pill svg { width: 0.875rem; height: 0.875rem; }
+
+/* Mobile actions (visible below lg) */
+.mobile-actions { display: flex; align-items: center; gap: 0.625rem; }
+@media (min-width: 1024px) { .mobile-actions { display: none; } }
+.mobile-actions .icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem;
+  border: 1.5px solid var(--c-black); border-radius: 3px;
+  background: transparent; color: var(--c-ink);
+}
+.mobile-actions .mobile-book {
+  display: inline-flex; align-items: center;
+  height: 2.75rem; padding-inline: 1rem;
+  background: var(--c-black); color: var(--c-paper);
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 3px;
+}
+.hamburger {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px; width: 2.75rem; height: 2.75rem;
+  background: transparent; border: 0; cursor: pointer;
+}
+.hamburger span {
+  display: block; width: 1.5rem; height: 2px; background: var(--c-ink);
+}
+.hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.hamburger span { transition: transform 0.2s, opacity 0.2s; }
+
+/* Mobile menu panel */
+.mobile-menu {
+  display: none;
+  border-top: 1px solid var(--c-line);
+  background: var(--c-paper);
+  padding: 0.5rem 1.25rem 1.5rem;
+}
+@media (max-width: 1023.98px) {
+  .mobile-menu[data-open="true"] { display: block; }
+}
+.mobile-menu__item { border-bottom: 1px solid rgba(238, 238, 238, 0.7); padding-block: 0.25rem; }
+.mobile-menu__item > a {
+  display: block; padding-block: 0.75rem;
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--c-ink);
+}
+.mobile-menu__children { padding: 0 0 0.5rem 0.75rem; }
+.mobile-menu__children a {
+  display: block; padding-block: 0.5rem;
+  font-size: 0.75rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--c-body);
+}
+.mobile-menu__strap {
+  margin-top: 1.25rem;
+  font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-slate);
+}
+
+/* ---------- 8. Footer (TK black band, tight columns)
+
+   Spacing matched to the TK footer's rendered values (Elementor CSS,
+   fetched from tatianakarelina.co.uk):
+   - Outer container padding: 50px top / 30px bottom (desktop);
+                              40px top / 30px bottom on mobile
+   - Body text: 12px (0.75rem), line-height ~1.55
+   - Column heading: 15px (0.94rem) at font-weight 600
+   - Link list: 12-13px, ~6px vertical rhythm
+
+   Ours is designed to sit on the same visual density as TK's footer, not
+   the airy default. Do not stretch these values back out.
+*/
+
+.site-footer { background: var(--c-black); color: var(--c-paper); }
+.site-footer__inner {
+  display: grid;
+  gap: 2rem;
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+@media (min-width: 640px) {
+  .site-footer__inner { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1024px) {
+  .site-footer__inner {
+    grid-template-columns: 1.4fr 1fr 1fr 1.5fr;
+    gap: 2rem;
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+}
+
+.footer-brand-mark { height: 1.75rem; width: auto; }
+.footer-h {
+  margin-top: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.94rem;      /* TK: footer h4 { font-size: 1.25em } × 12px body */
+  font-weight: 600;         /* TK: 600 */
+  letter-spacing: 0.02em;
+  text-transform: none;     /* TK renders these in title case, not caps */
+  color: var(--c-paper);
+}
+.footer-p {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;       /* TK: 12px */
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+}
+.footer-addresses {
+  margin-top: 0.9rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+.footer-contact { margin-top: 0.9rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.footer-contact p { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; margin: 0; }
+.footer-contact .k { color: rgba(255, 255, 255, 0.5); margin-right: 0.35rem; }
+.footer-contact a { color: var(--c-paper); }
+.footer-contact a:hover { color: rgba(255, 255, 255, 0.7); }
+
+.footer-links {
+  list-style: none;
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;             /* TK: tight ~6px */
+  font-size: 0.8rem;        /* TK: ~13px */
+  color: rgba(255, 255, 255, 0.85);
+}
+.footer-links a:hover { color: var(--c-paper); }
+
+.footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.15); }
+.footer-bottom__inner {
+  display: flex; flex-direction: column; gap: 0.25rem;
+  padding-block: 0.9rem;
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+@media (min-width: 640px) {
+  .footer-bottom__inner { flex-direction: row; align-items: center; justify-content: space-between; }
+}
+
+/* ---------- 9. Enquiry form (light + dark themes) */
+
+.form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form__field { display: flex; flex-direction: column; gap: 0.25rem; }
+.form__label {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-slate);
+}
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  background: var(--c-paper);
+  color: var(--c-body);
+  border: 1px solid var(--c-line);
+  border-radius: 0;
+  transition: border-color 0.15s;
+}
+.form input::placeholder,
+.form textarea::placeholder { color: var(--c-slate); }
+.form input:focus-visible,
+.form select:focus-visible,
+.form textarea:focus-visible { border-color: var(--c-ink); }
+
+.form__grid-2 { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 640px) { .form__grid-2 { grid-template-columns: 1fr 1fr; } }
+
+.form__consent {
+  display: flex; gap: 0.75rem; align-items: flex-start;
+  font-size: 0.875rem; line-height: 1.5; color: var(--c-body);
+}
+.form__consent input { width: 1rem; height: 1rem; margin-top: 0.25rem; }
+.form__consent a { text-decoration: underline; text-underline-offset: 2px; }
+
+.form__submit {
+  width: 100%; height: 2.75rem;
+  background: var(--c-black); color: var(--c-paper);
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  border: 0; border-radius: 3px; cursor: pointer;
+  transition: background-color 0.2s;
+}
+.form__submit:hover { background: var(--c-ink); }
+
+/* Dark theme — used inside the footer and the contact page right panel */
+.form--dark input,
+.form--dark select,
+.form--dark textarea {
+  background: transparent;
+  color: var(--c-paper);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.form--dark input::placeholder,
+.form--dark select,
+.form--dark textarea::placeholder { color: rgba(255, 255, 255, 0.6); }
+.form--dark select { color-scheme: dark; }
+.form--dark .form__label { color: rgba(255, 255, 255, 0.7); }
+.form--dark .form__consent { color: rgba(255, 255, 255, 0.8); }
+.form--dark .form__consent input { accent-color: var(--c-paper); }
+.form--dark .form__submit { background: var(--c-paper); color: var(--c-black); }
+.form--dark .form__submit:hover { background: rgba(255, 255, 255, 0.9); }
+
+/* Compact form — used in the footer Quick Contact block. Tighter still to
+   match TK footer form density. */
+.form--compact { gap: 0.5rem; }
+.form--compact input,
+.form--compact select,
+.form--compact textarea { padding: 0.4rem 0.65rem; font-size: 0.8rem; }
+.form--compact .form__submit { height: 2.25rem; }
+.form--compact .form__label { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+/* ---------- 9b. Section pattern helpers — TK-matched density */
+
+/* 2-col paired photo + text (hair loss / point of difference / about) */
+.pair {
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 900px) {
+  .pair { grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .pair--wider-text { grid-template-columns: 1fr 1.15fr; }
+  .pair--wider-image { grid-template-columns: 1.15fr 1fr; }
+  .pair--reverse .pair__image { order: 2; }
+}
+.pair__image {
+  position: relative;
+  overflow: hidden;
+  background: var(--c-line-2);
+  aspect-ratio: 4 / 5;
+}
+.pair__image img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.pair__body { display: flex; flex-direction: column; }
+.pair__body p + p { margin-top: 0.9rem; }
+.pair__body .cta-row { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+/* Trust strip (heading + eyebrow + press logo row, centred, contained) */
+.trust-strip { text-align: center; }
+.trust-strip h2 { max-width: 40rem; margin-inline: auto; }
+.trust-strip__logos {
+  margin-top: 1.75rem;
+  position: relative;
+  width: 100%;
+  max-width: 60rem;
+  margin-inline: auto;
+  height: 2.5rem;
+}
+@media (min-width: 640px) { .trust-strip__logos { height: 2.75rem; } }
+@media (min-width: 1024px) { .trust-strip__logos { height: 3.5rem; } }
+.trust-strip__logos img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(1); opacity: 0.85; }
+
+/* 4-tile grid (Classic / Frontal / Halo / Medical Wigs) */
+.tile-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) { .tile-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .tile-grid { grid-template-columns: repeat(4, 1fr); gap: 1.75rem; } }
+.tile {
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+}
+.tile__image {
+  position: relative;
+  overflow: hidden;
+  background: var(--c-line-2);
+  aspect-ratio: 4 / 3;
+}
+.tile__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.tile:hover .tile__image img { transform: scale(1.04); }
+.tile__body { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0.85rem; }
+.tile h3 { font-family: var(--font-serif); font-weight: 400; font-size: 1.35rem; line-height: 1.3; color: #000; }
+.tile__intro { font-size: 0.82rem; color: var(--c-body); line-height: 1.5; margin: 0; }
+.tile__usps {
+  list-style: none;
+  padding: 0; margin: 0.35rem 0 0;
+  display: flex; flex-direction: column; gap: 0.25rem;
+  font-size: 0.75rem; color: var(--c-body); line-height: 1.5;
+}
+.tile__usps li { display: flex; gap: 0.5rem; }
+.tile__usps li::before { content: ""; flex: none; width: 4px; height: 4px; border-radius: 50%; background: #000; margin-top: 0.55rem; }
+.tile__link { margin-top: 0.65rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #000; }
+.tile:hover .tile__link { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Reviews (Google star band + slider) */
+.reviews { text-align: center; }
+.google-band {
+  display: inline-flex; align-items: center; gap: 0.65rem;
+  margin: 0 auto;
+  font-size: 0.9rem;
+}
+.google-band .g-mark { width: 1.15rem; height: 1.15rem; }
+.google-band .stars { color: #f5a623; letter-spacing: 0.15em; }
+.google-band .count { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-slate); }
+.reviews__slider {
+  margin-top: 1.5rem;
+  display: flex; gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem;
+}
+.reviews__slider::-webkit-scrollbar { display: none; }
+.review {
+  flex: 0 0 86%;
+  scroll-snap-align: start;
+  text-align: left;
+}
+@media (min-width: 640px)  { .review { flex-basis: 46%; } }
+@media (min-width: 1024px) { .review { flex-basis: 31%; } }
+.review .stars { color: #f5a623; letter-spacing: 0.3em; margin: 0; }
+.review p { margin-top: 0.65rem; font-style: italic; color: var(--c-body); line-height: 1.55; }
+.review footer { margin-top: 0.65rem; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-slate); }
+
+/* FAQ accordion (native details/summary, TK style) */
+.faq-list { max-width: 44rem; margin-inline: auto; border-top: 1px solid var(--c-line); }
+.faq-list details { border-bottom: 1px solid var(--c-line); padding-block: 0.9rem; }
+.faq-list summary {
+  list-style: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--c-ink);
+}
+.faq-list summary::marker { content: ""; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary .plus { flex: none; color: var(--c-slate); font-size: 1.1rem; transition: transform 0.2s; }
+.faq-list details[open] summary .plus { transform: rotate(45deg); }
+.faq-list p { margin-top: 0.65rem; color: var(--c-body); line-height: 1.6; font-size: 0.92rem; }
+
+/* Before/afters carousel row (homepage proof) */
+.ba-row {
+  display: flex; gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem;
+}
+.ba-row::-webkit-scrollbar { display: none; }
+.ba-card {
+  flex: 0 0 86%;
+  scroll-snap-align: start;
+}
+@media (min-width: 640px)  { .ba-card { flex-basis: 46%; } }
+@media (min-width: 1024px) { .ba-card { flex-basis: 23%; } }
+.ba-card__image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--c-line-2);
+}
+.ba-card__image img { width: 100%; height: 100%; object-fit: cover; }
+.ba-card__badge {
+  position: absolute; top: 0.5rem; left: 0.5rem;
+  padding: 0.15rem 0.45rem;
+  background: rgba(0,0,0,0.8); color: var(--c-paper);
+  font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.ba-card__caption { margin-top: 0.6rem; font-size: 0.78rem; color: var(--c-body); line-height: 1.45; }
+
+/* Instagram (single photo + handle) */
+.ig { text-align: center; }
+.ig__image {
+  width: 100%; max-width: 30rem;
+  margin: 0 auto 1rem;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--c-line-2);
+}
+.ig__image img { width: 100%; height: 100%; object-fit: cover; }
+.ig__handle {
+  display: inline-flex; align-items: center; gap: 0.65rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--c-ink);
+}
+.ig__handle svg { width: 1.15rem; height: 1.15rem; }
+.ig__handle:hover { color: var(--c-slate); }
+
+/* ---------- 10. Hero (foundation placeholder — full-bleed image + centred content) */
+
+.hero {
+  position: relative;
+  height: 68vh;
+  min-height: 440px;
+  overflow: hidden;
+  color: var(--c-paper);
+  isolation: isolate;
+}
+@media (min-width: 1024px) { .hero { height: calc(100vh - 7rem); } }
+.hero__image {
+  position: absolute; inset: 0; z-index: -10;
+  width: 100%; height: 100%; object-fit: cover; object-position: center;
+}
+/* Deepened top fade — hosts the white wordmark against bright hangers */
+.hero__fade-top {
+  position: absolute; inset-inline: 0; top: 0; z-index: -10;
+  height: 42%;
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.32) 32%,
+    rgba(0,0,0,0.12) 55%,
+    transparent 72%);
+}
+/* Dark bottom fade — hosts the white headline + CTAs */
+.hero__fade-bottom {
+  position: absolute; inset-inline: 0; bottom: 0; z-index: -10;
+  height: 62%;
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.88),
+    rgba(0,0,0,0.72) 22%,
+    rgba(0,0,0,0.42) 42%,
+    rgba(0,0,0,0.12) 62%,
+    transparent 78%);
+}
+.hero__wordmark {
+  position: absolute; inset-inline: 0; top: 10%;
+  display: flex; justify-content: center;
+  padding-inline: 1.5rem;
+  pointer-events: none;
+}
+@media (min-width: 1024px) { .hero__wordmark { top: 12%; } }
+.hero__wordmark img {
+  height: auto;
+  width: 62vw; max-width: 440px;
+}
+@media (min-width: 640px)  { .hero__wordmark img { width: 46vw; max-width: 520px; } }
+@media (min-width: 1024px) { .hero__wordmark img { width: 32vw; max-width: 560px; } }
+
+.hero__base {
+  position: absolute; inset-inline: 0; bottom: 0;
+  padding: 0 1.25rem 1.5rem;
+  text-align: center;
+  text-shadow: 0 1px 20px rgba(0,0,0,0.55);
+}
+@media (min-width: 1024px) { .hero__base { padding-bottom: 2rem; } }
+.hero__h1 {
+  color: var(--c-paper);
+  font-family: var(--font-serif); font-weight: 500;
+  line-height: 1.16;
+  font-size: clamp(1.05rem, 0.5rem + 2.5vw, 2.7rem);
+  margin: 0 auto; max-width: 80rem;
+}
+.hero__h1 span { display: block; white-space: nowrap; }
+.hero__ctas { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+@media (min-width: 1024px) { .hero__ctas { margin-top: 1.75rem; } }
+
+/* ---------- 11. Page hero (shorter variant for money/other pages) */
+
+.hero--page {
+  height: 56vh;
+  min-height: 380px;
+}
+@media (min-width: 1024px) { .hero--page { height: 58vh; min-height: 460px; } }
+.hero__h1--page {
+  white-space: normal;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+.hero__h1--page span { display: inline; white-space: normal; }
+.hero__base .eyebrow--paper { margin-bottom: 0.3rem; }
+.hero__base .eyebrow-rule--paper { margin: 0.5rem auto 0.75rem; }
+
+/* ---------- 12. Section lead paragraph (centred intro under a heading) */
+
+.section-lead {
+  max-width: 38rem;
+  margin: 1rem auto 0;
+  text-align: center;
+  color: var(--c-body);
+}
+
+/* ---------- 13. Consultation CTA band (black, full-bleed) */
+
+.cta-band { background: var(--c-black); color: var(--c-paper); text-align: center; }
+.cta-band h2 { color: var(--c-paper); }
+.cta-band .eyebrow { color: rgba(255,255,255,0.75); }
+.cta-band__body {
+  max-width: 34rem;
+  margin: 1rem auto 0;
+  color: rgba(255,255,255,0.82);
+}
+.cta-band__strap {
+  margin-top: 1.25rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.cta-band__ctas {
+  margin-top: 1.5rem;
+  display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
+}
+
+/* ---------- 14. Causes / feature grid (ivory band, editorial hairline cards) */
+
+.feature-grid {
+  display: grid; gap: 1.75rem 2rem;
+  grid-template-columns: 1fr;
+  margin-top: 0.5rem;
+}
+@media (min-width: 640px)  { .feature-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .feature-grid { grid-template-columns: 1fr 1fr 1fr; } }
+.feature-grid__item { border-top: 1px solid rgba(0,0,0,0.12); padding-top: 1rem; }
+.feature-grid__item h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+.feature-grid__item p { font-size: 0.86rem; line-height: 1.55; margin: 0; }
+
+/* ---------- 15. Numbered steps list (journey, video-consultation, remote steps) */
+
+.steps-list { max-width: 46rem; margin: 0 auto; display: flex; flex-direction: column; }
+.steps-list__item {
+  display: grid; grid-template-columns: 2.75rem 1fr; gap: 1rem;
+  padding-block: 1.35rem;
+  border-top: 1px solid var(--c-line);
+}
+.steps-list__item:last-child { border-bottom: 1px solid var(--c-line); }
+.steps-list__num {
+  font-family: var(--font-serif); font-size: 1.5rem; color: var(--c-slate); line-height: 1;
+}
+.steps-list__item h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+.steps-list__item p { margin: 0; font-size: 0.88rem; line-height: 1.6; }
+
+/* Compact variant used inside the 3-pillar / 5-step "signature approach" band */
+.steps-list--compact .steps-list__item { padding-block: 0.9rem; }
+.steps-list--compact .steps-list__num { font-size: 1.15rem; }
+.steps-list--compact p { font-size: 0.84rem; }
+
+/* ---------- 16. Two-route cards (In salon / By video) */
+
+.route-cards {
+  display: grid; gap: 1.5rem;
+  grid-template-columns: 1fr;
+  margin-top: 1.75rem;
+}
+@media (min-width: 720px) { .route-cards { grid-template-columns: 1fr 1fr; } }
+.route-card {
+  background: var(--c-paper);
+  padding: 1.75rem;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.route-card h3 { font-size: 1.15rem; margin-bottom: 0.6rem; }
+.route-card p { margin: 0; font-size: 0.88rem; line-height: 1.6; }
+.route-card a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- 17. Pricing table */
+
+.pricing-table-wrap { overflow-x: auto; margin-top: 1.5rem; }
+.pricing-table { width: 100%; border-collapse: collapse; min-width: 420px; }
+.pricing-table caption { text-align: left; font-size: 0.78rem; color: var(--c-slate); margin-bottom: 0.5rem; }
+.pricing-table th, .pricing-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--c-line);
+  font-size: 0.88rem;
+}
+.pricing-table th {
+  font-family: var(--font-accent);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-slate);
+  font-weight: 500;
+  border-bottom: 1px solid var(--c-ink);
+}
+.pricing-table td:not(:first-child), .pricing-table th:not(:first-child) { text-align: right; }
+.pricing-table tbody tr:hover { background: var(--c-line-2); }
+.pricing-intro { max-width: 40rem; margin-top: 0.5rem; }
+.pricing-note {
+  margin-top: 0.75rem; font-size: 0.75rem; color: var(--c-slate);
+}
+
+/* ---------- 18. Check / detail list (bullet list with dot, larger than tile__usps) */
+
+.check-list { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.check-list li { display: flex; gap: 0.65rem; font-size: 0.92rem; line-height: 1.55; }
+.check-list li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 50%; background: #000; margin-top: 0.6rem; }
+.check-list strong { font-weight: 500; }
+
+/* ---------- 19. Filter bar (before & afters, blog) — black pill buttons */
+
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center;
+  margin: 0 auto 2rem;
+}
+.filter-pill {
+  height: 2.25rem; padding-inline: 1.1rem;
+  border: 1.5px solid var(--c-black); border-radius: 999px;
+  background: transparent; color: var(--c-ink);
+  font-family: var(--font-accent); font-size: 0.66rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.filter-pill:hover { background: var(--c-line-2); }
+.filter-pill[aria-pressed="true"] { background: var(--c-black); color: var(--c-paper); }
+
+/* ---------- 20. Video slot (Wistia embed placeholder) */
+
+.video-slot {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #111;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.video-slot--vertical { aspect-ratio: 9 / 16; }
+.video-slot img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+.video-slot__play {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem;
+  color: var(--c-paper); text-align: center; padding: 1rem;
+}
+.video-slot__play svg { width: 3.25rem; height: 3.25rem; }
+.video-slot__play span { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; }
+.video-slot__caption { margin-top: 0.75rem; text-align: center; font-size: 0.82rem; color: var(--c-slate); }
+.video-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; margin-top: 1.5rem; }
+@media (min-width: 720px) { .video-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---------- 21. Contact page two-panel layout */
+
+.contact-grid { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+.contact-panel { padding: 3rem 1.5rem; }
+@media (min-width: 1024px) { .contact-panel { padding: 4rem 3rem; } }
+.contact-panel--light { background: #f5f5f5; }
+.contact-panel--dark { background: var(--c-black); color: var(--c-paper); }
+.contact-panel--dark h2 { color: var(--c-paper); }
+.contact-panel__inner { max-width: 26rem; }
+@media (min-width: 900px) { .contact-panel--light .contact-panel__inner { margin-left: auto; } }
+.contact-block { margin-top: 1.75rem; }
+.contact-block:first-of-type { margin-top: 2rem; }
+.contact-block h3 {
+  font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-ink); margin-bottom: 0.6rem;
+}
+.contact-block p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: var(--c-body); text-align: left; }
+.contact-block address { font-style: normal; }
+.contact-block a { text-decoration: underline; text-underline-offset: 3px; }
+.hours-table { width: 100%; font-size: 0.85rem; margin-top: 0.25rem; }
+.hours-table td { padding: 0.2rem 0; }
+.hours-table td:last-child { text-align: right; color: var(--c-slate); }
+
+/* ---------- 22. Map embed */
+
+.map-frame { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--c-line-2); }
+.map-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* ---------- 23. Blog index — filter bar + 3-across card grid */
+
+.blog-grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+@media (min-width: 640px)  { .blog-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .blog-grid { grid-template-columns: repeat(3, 1fr); gap: 2.25rem; } }
+.blog-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+.blog-card__image { position: relative; overflow: hidden; background: var(--c-line-2); aspect-ratio: 4 / 3; }
+.blog-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.blog-card:hover .blog-card__image img { transform: scale(1.04); }
+.blog-card__tag {
+  margin-top: 0.9rem; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--c-slate);
+}
+.blog-card h3 { margin-top: 0.4rem; font-size: 1.2rem; }
+.blog-card__excerpt { margin-top: 0.5rem; font-size: 0.85rem; color: var(--c-body); line-height: 1.55; }
+.blog-card__link {
+  margin-top: 0.75rem; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #000;
+}
+.blog-card:hover .blog-card__link { text-decoration: underline; text-underline-offset: 4px; }
+.blog-empty { text-align: center; color: var(--c-slate); padding-block: 2rem; }
+
+/* ---------- 24. Breadcrumb (small, above page hero content in some templates) */
+
+.breadcrumb {
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--c-slate); margin-bottom: 1rem;
+}
+.breadcrumb a { color: var(--c-slate); }
+.breadcrumb a:hover { color: var(--c-ink); text-decoration: underline; }
+
+/* ============================================================================
+   25. ACADEMY TREATMENT — shared, sitewide (2026-07-23)
+   The TK Academy site's layout architecture, recoloured to strict
+   black / white / grey with TK's own type stack. Approved on the
+   Toppers pillar page, now promoted to the shared system.
+
+   PHOTO STANDARD (governing rule, per Shawn 2026-07-23):
+   photos sit in a STANDARD frame (the .pair 4:5 portrait frame) and are
+   never stretched, and never cropped to match text height. Copy is
+   written as 1-2 substantial paragraphs to balance the photo. The old
+   crop-photo-to-text-height rule is retired.
+   ========================================================================= */
+
+/* Eyebrow flanked by two short rules either side (Academy symmetry) */
+.eyebrow--flanked {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  width: 100%;
+}
+.eyebrow--flanked::before,
+.eyebrow--flanked::after {
+  content: "";
+  flex: none;
+  width: 26px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+/* Left-aligned variant: single trailing rule */
+.eyebrow--flanked-left {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.85rem;
+  width: auto;
+}
+.eyebrow--flanked-left::before { display: none; }
+.eyebrow--flanked-left::after {
+  content: "";
+  flex: none;
+  width: 26px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+/* Italic serif accent word inside headings — same ink, no colour change */
+.accent { font-style: italic; font-weight: 400; }
+
+/* Bigger editorial section headings */
+.section-heading h2, .pair__body > h2 {
+  font-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.75rem);   /* Academy H2 cap: 44px */
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+/* Split hero — text left (eyebrow, serif H1, lead, dual CTAs), framed photo right.
+   The photo keeps a STANDARD 4:5 frame; it does not stretch to the text. */
+.split-hero {
+  display: grid;
+  gap: 2.25rem;
+  align-items: center;
+  padding-block: 2.5rem 3rem;
+}
+@media (min-width: 960px) {
+  .split-hero { grid-template-columns: 1.05fr 0.95fr; gap: 4.5rem; padding-block: 3.5rem 4rem; }
+}
+.split-hero__h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(44px, 4.4vw, 60px);   /* TK Academy hero H1 scale (42px mobile below) */
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 1.1rem 0 1.25rem;
+  color: var(--c-ink);
+}
+@media (max-width: 639.98px) {
+  .split-hero__h1 { font-size: 42px; line-height: 0.98; }
+}
+.split-hero__lead {
+  font-size: clamp(1.02rem, 0.95rem + 0.3vw, 1.18rem);
+  line-height: 1.65;
+  color: var(--c-body);
+  max-width: 32rem;
+}
+.split-hero__image {
+  overflow: hidden;
+  background: var(--c-line-2);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  aspect-ratio: 4 / 5;
+}
+@media (max-width: 959.98px) {
+  .split-hero__image { aspect-ratio: 4 / 3; }
+}
+.split-hero__image img { width: 100%; height: 100%; object-fit: cover; }
+.split-hero .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* Full-bleed black stat band (Academy stat band, TK black) */
+.stat-band {
+  background: var(--c-black);
+  color: var(--c-paper);
+  padding-block: 2.5rem;
+}
+.stat-band__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 1.5rem;
+  text-align: center;
+}
+@media (min-width: 800px) {
+  .stat-band__grid { grid-template-columns: repeat(4, 1fr); }
+}
+.stat-band__num {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.35rem, 1rem + 1.3vw, 1.95rem);
+  line-height: 1.15;
+}
+.stat-band__label {
+  display: block;
+  margin-top: 0.45rem;
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+/* Numbered list with horizontal-rule dividers (Academy "who this is for") */
+.numbered-list { margin-top: 1.5rem; }
+.numbered-list__item {
+  padding: 1.35rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
+}
+.numbered-list__item:last-child { border-bottom: 1px solid rgba(0, 0, 0, 0.14); }
+.numbered-list__eyebrow {
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--c-slate);
+  margin: 0 0 0.4rem;
+}
+.numbered-list__item h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem);
+  margin: 0 0 0.4rem;
+}
+.numbered-list__item p { margin: 0 0 0.6rem; }
+.numbered-list__link {
+  font-family: var(--font-accent);
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Stacked left-border feature list (Academy "what you will learn") */
+.border-list { margin-top: 1.25rem; }
+.border-list__item {
+  border-left: 2px solid var(--c-ink);
+  padding: 0.1rem 0 0.1rem 1.35rem;
+  margin-bottom: 1.75rem;
+}
+.border-list__item:last-child { margin-bottom: 0; }
+.border-list__item h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem);
+  margin: 0 0 0.4rem;
+}
+.border-list__item p { margin: 0; }
+
+/* Card polish for tiles + before/after cards */
+.tile-grid .tile {
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.tile-grid .tile__body { padding: 0.85rem 1rem 1.1rem; }
+.tile-grid .tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.14);
+  border-color: rgba(0, 0, 0, 0.4);
+}
+.ba-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+.ba-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12); }
+
+/* ============================================================================
+   26. BEFORE/AFTER CAROUSEL — exact TK pattern (per Shawn 2026-07-23):
+   desktop shows EXACTLY 4 identical-size thumbnails per view with
+   prev/next arrows; mobile shows 1 per view, swipeable. Replaces the
+   loose 23%-basis scroll row (which showed 4.3 cards).
+   ========================================================================= */
+
+.ba-carousel { position: relative; }
+.ba-carousel .ba-row {
+  gap: 1.25rem;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+.ba-carousel .ba-card { flex: 0 0 100%; scroll-snap-align: start; }
+@media (min-width: 640px) {
+  .ba-carousel .ba-card { flex: 0 0 calc((100% - 1.25rem) / 2); }
+}
+@media (min-width: 1024px) {
+  .ba-carousel .ba-card { flex: 0 0 calc((100% - 3 * 1.25rem) / 4); }
+}
+.ba-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-paper);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  color: var(--c-ink);
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s, opacity 0.25s;
+}
+.ba-carousel__arrow:hover { background: var(--c-black); color: var(--c-paper); }
+.ba-carousel__arrow[disabled] { opacity: 0.25; cursor: default; }
+.ba-carousel__arrow[disabled]:hover { background: var(--c-paper); color: var(--c-ink); }
+.ba-carousel__arrow--prev { left: -12px; }
+.ba-carousel__arrow--next { right: -12px; }
+@media (min-width: 1440px) {
+  .ba-carousel__arrow--prev { left: -52px; }
+  .ba-carousel__arrow--next { right: -52px; }
+}
+@media (max-width: 639.98px) {
+  .ba-carousel__arrow { display: none; } /* mobile: swipe */
+}
+.ba-carousel__arrow svg { width: 16px; height: 16px; }
+
+/* Pair balance tuning (2026-07-23): the standard photo frame stays 4:5 but
+   the image column narrows so a photo's height lands close to 1-2 full
+   paragraphs of copy — photos are never cropped-to-text, text is never
+   stretched, and any small difference centres cleanly. */
+@media (min-width: 900px) {
+  .pair--wider-text { grid-template-columns: 0.8fr 1.2fr; }
+  .pair--wider-text.pair--reverse { grid-template-columns: 1.2fr 0.8fr; }
+  .pair--wider-text.pair--reverse .pair__image { order: initial; grid-column: 2; grid-row: 1; }
+  .pair--wider-text.pair--reverse .pair__body { grid-column: 1; grid-row: 1; }
+  .pair__body { font-size: 0.95rem; }
+}
+
+/* ============================================================================
+   27. TK-PARITY FIXES (2026-07-23, round 2 — per Shawn's screenshot review)
+   Where tatianakarelina.co.uk has a working component, clone it exactly.
+   ========================================================================= */
+
+/* FAQ — TK size: full-width rows, large serif questions, circled plus */
+.faq-list {
+  max-width: none;
+  border-top: 1px solid var(--c-line);
+}
+.faq-list details { padding-block: 1.5rem; }
+.faq-list summary {
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
+  line-height: 1.35;
+}
+.faq-list summary .plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--c-ink);
+  border-radius: 50%;
+  color: var(--c-ink);
+  font-size: 1.15rem;
+  line-height: 1;
+  font-family: var(--font-sans);
+}
+.faq-list p { font-size: 0.95rem; max-width: 60rem; }
+
+/* Press strip — TK size: large two-row logo strip, ~85% of content width */
+.trust-strip__logos {
+  height: auto;
+  max-width: 66rem;
+}
+.trust-strip__logos img { height: auto; }
+
+/* Client reviews — TK-exact card slider */
+.google-band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 auto 2.25rem;
+  font-family: var(--font-sans);
+}
+.google-band .excellent {
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  color: var(--c-ink);
+}
+.google-band .stars--amber { color: #fbbc04; font-size: 1.2rem; letter-spacing: 0.05em; }
+.google-band .count { font-size: 1.1rem; color: var(--c-ink); text-transform: none; letter-spacing: 0; }
+.google-band .g-word { font-size: 1.25rem; font-weight: 500; }
+.google-band .g-word .b { color: #4285F4; } .google-band .g-word .r { color: #EA4335; }
+.google-band .g-word .y { color: #FBBC05; } .google-band .g-word .g { color: #34A853; }
+
+.reviews .ba-carousel { margin-top: 0.5rem; }
+.reviews .ba-row { padding: 1rem 0.5rem 3.5rem; }
+.reviews .ba-row .review-card { flex: 0 0 100%; scroll-snap-align: start; }
+@media (min-width: 640px) { .reviews .ba-row .review-card { flex: 0 0 calc((100% - 1.25rem) / 2); } }
+@media (min-width: 1024px) { .reviews .ba-row .review-card { flex: 0 0 calc((100% - 2 * 1.5rem) / 3); } }
+@media (min-width: 1024px) { .reviews .ba-row { gap: 1.5rem; } }
+
+.review-card { position: relative; }
+.review-card__box {
+  position: relative;
+  background: var(--c-paper);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 1.5rem 2.25rem;
+  text-align: left;
+}
+.review-card__box::after {          /* speech-bubble tail */
+  content: "";
+  position: absolute;
+  left: 2rem;
+  bottom: -14px;
+  width: 0; height: 0;
+  border-left: 0 solid transparent;
+  border-right: 22px solid transparent;
+  border-top: 14px solid var(--c-paper);
+  filter: drop-shadow(0 3px 2px rgba(0,0,0,0.05));
+}
+.review-card__quote {
+  font-family: Georgia, serif;
+  font-size: 2.6rem;
+  line-height: 0.5;
+  color: #c9c9c9;
+  float: left;
+  margin: 0.6rem 0.6rem 0 0;
+}
+.review-card__stars { color: #111; font-size: 1rem; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 0.4rem; }
+.review-card__verified { width: 15px; height: 15px; color: #9aa0a6; }
+.review-card__text {
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: #6b7075;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.review-card__text a { text-decoration: underline; text-underline-offset: 3px; }
+.review-card__g {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1rem;
+  width: 26px;
+  height: 26px;
+}
+.review-card__name {
+  margin-top: 1.6rem;
+  padding-left: 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-slate);
+}
+
+/* Contact page — exact TK replica: side-by-side panels in a container */
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+@media (min-width: 960px) {
+  .contact-wrap { grid-template-columns: 0.9fr 1.1fr; }
+}
+.contact-panel { padding: 2.5rem 2rem; }
+@media (min-width: 1024px) { .contact-panel { padding: 2.75rem 2.5rem; } }
+.contact-panel--light { background: #ebebeb; }
+.contact-panel--light h1 {
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2rem);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+.contact-panel--dark { background: var(--c-black); color: var(--c-paper); }
+.contact-panel--dark h2 {
+  color: var(--c-paper);
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2rem);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+.contact-line {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 0.85rem;
+  font-size: 0.82rem;
+  color: var(--c-body);
+}
+.contact-line svg { flex: none; width: 15px; height: 15px; margin-top: 0.15rem; color: var(--c-ink); }
+.contact-line a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.hours-table { border-collapse: collapse; font-size: 0.82rem; color: var(--c-body); margin: 0.35rem 0 1.1rem 1.65rem; }
+.hours-table td { padding: 0.12rem 1.5rem 0.12rem 0; }
+.hours-table td:first-child { text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.76rem; }
+.contact-press { font-size: 0.82rem; color: var(--c-body); margin-left: 1.65rem; }
+.small-print {
+  font-size: 0.78rem;
+  color: var(--c-slate);
+  line-height: 1.7;
+  max-width: none;
+  margin-top: 1.25rem;
+}
+.small-print strong { font-weight: 600; color: var(--c-body); }
+.map-band { line-height: 0; }
+.map-band iframe { width: 100%; height: 420px; border: 0; filter: grayscale(1); }
+
+/* ============================================================================
+   28. INNER-PAGE TEMPLATE — replicates Academy instructor.html (2026-07-23)
+   Centred page intro → photo + FULL-HEIGHT text pair (pull-quote + deep copy)
+   → ivory band with two character-matched text columns → closing CTA.
+   Golden rule: the text box matches the photo height because the copy is
+   written to fill it — never stretched, never cropped.
+   ========================================================================= */
+
+.page-intro {
+  text-align: center;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-block: 2.5rem 1rem;
+}
+.page-intro .breadcrumb { margin-bottom: 0.75rem; }
+.page-intro h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(44px, 4.4vw, 60px);   /* Academy H1 scale */
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0.9rem 0 1.1rem;
+}
+@media (max-width: 639.98px) { .page-intro h1 { font-size: 42px; line-height: 0.98; } }
+.page-intro .lead {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--c-body);
+  text-align: center;
+}
+.page-intro .cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* Pull-quote — Academy's left-border italic serif emphasis line */
+.pull-quote {
+  border-left: 2px solid var(--c-ink);
+  padding: 0.15rem 0 0.15rem 1.15rem;
+  margin: 1.1rem 0 1.25rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: var(--c-ink);
+}
+
+/* Two matched text columns (Academy "career in brief" pattern) */
+.two-col-text {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2.25rem;
+}
+@media (min-width: 900px) { .two-col-text { grid-template-columns: 1fr 1fr; gap: 4.5rem; } }
+.two-col-text h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 1.3rem;
+  margin: 0 0 0.75rem;
+}
+.two-col-text p + p { margin-top: 0.9rem; }
+
+/* ============================================================================
+   29. GLOBAL TEXT RULES (2026-07-23, per Shawn): all body text fully
+   justified, everywhere; no hyphenation at any breakpoint.
+   ========================================================================= */
+main p, main li, .footer p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+/* Exceptions: micro-labels, buttons, captions, centred headings stay as set */
+main .eyebrow, main .breadcrumb, main .btn, main figcaption,
+main .numbered-list__eyebrow, main .numbered-list__link,
+main .stat-band__label, main .review-card__name, main .blog-card__tag,
+main .blog-card__link, main .video-slot__caption {
+  text-align: inherit;
+  text-align: left;
+}
+main .section-heading p { text-align: center; }
+main .eyebrow--flanked { text-align: center; }
+main .cta-band p { text-align: center; }
+main .google-band { text-align: center; }
+main .page-intro .lead { text-align: justify; }
+main .ig__handle { text-align: center; }
+
+/* Answer block — citable opening block under article/page H1s */
+.answer-block {
+  max-width: 52rem;
+  margin-inline: auto;
+  border-left: 2px solid var(--c-ink);
+  padding: 0.35rem 0 0.35rem 1.35rem;
+}
+.answer-block p {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--c-body);
+  margin: 0;
+}
+
+/* Article page */
+.article-h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(36px, 3.4vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0.6rem 0 0.75rem;
+}
+.article-meta { color: var(--c-slate); font-size: 0.82rem; margin-bottom: 1.5rem; }
+.article-hero { aspect-ratio: 16/9; overflow: hidden; background: var(--c-line-2); margin-bottom: 2rem; }
+.article-hero img { width: 100%; height: 100%; object-fit: cover; }
+.article-body { font-size: 1rem; line-height: 1.75; color: var(--c-body); }
+.article-body h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.85rem);
+  margin: 2.25rem 0 0.75rem;
+}
+.article-body p + p { margin-top: 0.9rem; }
+.article-body a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Pair image column widened so photo height sits as close as possible to
+   the text box height (per Shawn: size photos to the text boxes; centre
+   when not identical). */
+@media (min-width: 900px) {
+  .pair--wider-text { grid-template-columns: 0.85fr 1.15fr; }
+  .pair--wider-text.pair--reverse { grid-template-columns: 1.15fr 0.85fr; }
+}
+
+/* TKA H1 scale on remaining page hero variants */
+.page-hero__h1, .hero__h1--page {
+  font-size: clamp(44px, 4.4vw, 60px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+@media (max-width: 639.98px) {
+  .page-hero__h1, .hero__h1--page { font-size: 42px; line-height: 0.98; }
+}
