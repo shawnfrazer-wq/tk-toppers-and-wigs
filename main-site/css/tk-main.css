@@ -48,16 +48,16 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 
 h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; color: var(--black); margin: 0 0 14px; }
-h2 { font-size: 36px; line-height: 1.389; }
+h2 { font-size: 40px; line-height: 1.389; }
 h3 { font-size: 20px; line-height: 1.4; }
-@media (max-width: 767px) { h2 { font-size: 28px; } }
+@media (max-width: 767px) { h2 { font-size: 30px; } }
 
 main p { text-align: justify; hyphens: none; margin: 0 0 16px; }
 main li { text-align: justify; hyphens: none; }
 
 .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
 .section { padding: 64px 0; }
-.section--soft { background: var(--soft); }
+.section--soft { background: var(--paper); }
 @media (max-width: 767px) { .section { padding: 44px 0; } }
 
 /* --------------------------------------------------------------------------
@@ -197,7 +197,7 @@ main li { text-align: justify; hyphens: none; }
 .ba-card { flex: 0 0 100%; scroll-snap-align: start; margin: 0; }
 @media (min-width: 640px) { .ba-card { flex: 0 0 calc((100% - 20px) / 2); } }
 @media (min-width: 1024px) { .ba-card { flex: 0 0 calc((100% - 3 * 20px) / 4); } }
-.ba-card img { width: 100%; aspect-ratio: 1.1 / 1; object-fit: cover; }
+.ba-card img { width: 100%; height: auto; }
 .ba-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--black);
@@ -208,6 +208,11 @@ main li { text-align: justify; hyphens: none; }
 .ba-arrow--prev { left: -12px; }
 .ba-arrow--next { right: -12px; }
 @media (max-width: 767px) { .ba-arrow--prev { left: 4px; } .ba-arrow--next { right: 4px; } }
+/* Live-site style bottom nav: centred BACK / NEXT under the row */
+.ba-nav { display: flex; justify-content: center; gap: 56px; margin-top: 22px; }
+.ba-nav button { background: none; border: 0; cursor: pointer; color: var(--black); font-family: var(--sans); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.ba-nav button span.arr { font-size: 22px; line-height: 1; }
+.ba-nav button[disabled] { opacity: 0.3; cursor: default; }
 
 /* Proof pair (before | after) */
 .proof-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 0 auto 26px; }
