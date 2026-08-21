@@ -114,10 +114,11 @@ main li { text-align: justify; hyphens: none; }
 /* --------------------------------------------------------------------------
    Hero — tall photo, translucent white band near the bottom carrying the H1
    -------------------------------------------------------------------------- */
-.page-hero { position: relative; height: min(700px, 72vw); min-height: 430px; overflow: hidden; }
+.page-hero-wrap { max-width: 1360px; margin: 0 auto; padding: 0 20px; }
+.page-hero { position: relative; height: min(620px, 46vw); min-height: 320px; overflow: hidden; }
 .page-hero img { width: 100%; height: 100%; object-fit: cover; object-position: var(--hero-pos, center 36%); }
 .page-hero-band {
-  position: absolute; left: 0; right: 0; bottom: 16px;
+  position: absolute; left: 0; right: 0; bottom: 0;
   background: var(--band); text-align: center; padding: 8px 20px 10px;
 }
 .page-hero-band h1 {
@@ -129,8 +130,7 @@ main li { text-align: justify; hyphens: none; }
   margin: 26px auto 0; padding: 0 20px;
 }
 @media (max-width: 767px) {
-  .page-hero { height: 430px; }
-  .page-hero-band { bottom: 12px; }
+  .page-hero { height: 400px; }
 }
 
 /* --------------------------------------------------------------------------
@@ -151,6 +151,7 @@ main li { text-align: justify; hyphens: none; }
    -------------------------------------------------------------------------- */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
 .split-media img { width: 100%; height: 595px; object-fit: cover; }
+.split-media--card img { height: auto; object-fit: contain; }
 .split--reverse .split-media { order: 2; }
 .split-copy h2 { text-align: left; }
 .split-copy .eyebrow, .split-copy .eyebrow-rule { text-align: center; }
