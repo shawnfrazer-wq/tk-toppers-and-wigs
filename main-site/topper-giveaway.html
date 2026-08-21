@@ -68,9 +68,9 @@
         <span class="eyebrow-rule"></span>
         <h2>How It Works</h2>
         <ol class="journey">
-          <li><strong>Apply</strong>Fill in the form and tell us about your hair loss in your own words. There is nothing to buy and no numbers to collect. Applications close at 23:59 on the 25th of each month, and anything received after the 25th automatically goes into the following month.</li>
+          <li><strong>Apply</strong>Fill in the form and tell us about your hair loss in your own words. There is nothing to buy and no numbers to collect.</li>
           <li><strong>Panel review</strong>Every application is read in full by a small panel at Tatiana Karelina, including our senior topper specialists.</li>
-          <li><strong>The decision</strong>The recipient is selected on a combination of personal circumstances, the difference a topper would make to her daily life, and the story shared in the application. The name is announced on this page on the last day of the month.</li>
+          <li><strong>The decision</strong>The recipient is chosen on her personal circumstances, the difference a topper would make to her daily life, and the story she shares. This is not a draw and nothing is left to chance; the panel's decision is final. The name is announced on this page on the last day of the month.</li>
           <li><strong>Your fitting</strong>The recipient is fitted at our London or Manchester salon. The visit is filmed so the story can be shared.</li>
         </ol>
       </div>
@@ -90,8 +90,7 @@
         <h2>Who Can Apply</h2>
         <p>You are experiencing hair loss, thinning or alopecia. This includes hair loss from cancer treatment and other medical conditions. You are a UK resident aged 18 or over and can travel to our London or Manchester salon, and you are happy to tell us about your circumstances in the application.</p>
         <p>You agree to be filmed at your fitting. The footage may be shared on our website and social media, and filming consent is a condition of entry. One application per person per month, and previous recipients may apply again after 12 months.</p>
-        <p>Applications close on the 25th of each month. Anything received after 23:59 on the 25th is automatically carried into the following month, so your story is never wasted.</p>
-        <p><span class="leadin">How we choose.</span> This is not a draw. There are no winning numbers and nothing is left to chance. Our panel reads every application and chooses one recipient each month based on her personal circumstances, the impact a topper would have on her confidence and daily life, and the story she shares in her own words. The panel's decision is final.</p>
+        <p>Applications close at 23:59 on the 25th of each month. Anything received after that is automatically carried into the following month, so your story is never wasted.</p>
       </div>
     </div>
   </div>
@@ -130,7 +129,7 @@
         <div><span class="count-num" id="cd-mins">00</span><span class="count-label">Minutes</span></div>
         <div><span class="count-num" id="cd-secs">00</span><span class="count-label">Seconds</span></div>
       </div>
-      <p style="text-align: center;">The recipient is announced on this page on the last day of the month.</p>
+      <p style="text-align: center;">Applications for the first month close at 23:59 on 25 September 2026, and the recipient is announced on this page on 30 September.</p>
     </div>
   </div>
 </section>
@@ -141,12 +140,12 @@
       <p class="eyebrow">Past recipients</p>
       <span class="eyebrow-rule"></span>
       <h2>Every Story Will Be Shared Here</h2>
-      <p style="text-align: center;">Each month the recipient's story and fitting will be shared here. Our first recipient will be announced at the end of August 2026.</p>
+      <p style="text-align: center;">Each month the recipient's story and fitting will be shared here. Our first recipient will be announced on 30 September 2026.</p>
     </div>
     <div class="recipients">
-      <div class="recipient-card"><div class="recipient-photo">TK</div><p>August 2026</p></div>
       <div class="recipient-card"><div class="recipient-photo">TK</div><p>September 2026</p></div>
       <div class="recipient-card"><div class="recipient-photo">TK</div><p>October 2026</p></div>
+      <div class="recipient-card"><div class="recipient-photo">TK</div><p>November 2026</p></div>
     </div>
   </div>
 </section>
@@ -218,6 +217,8 @@
 (function () {
   function target() {
     var now = new Date();
+    var first = new Date(2026, 8, 25, 23, 59, 59);
+    if (now < first) return first;
     var t = new Date(now.getFullYear(), now.getMonth(), 25, 23, 59, 59);
     if (now > t) t = new Date(now.getFullYear(), now.getMonth() + 1, 25, 23, 59, 59);
     return t;
