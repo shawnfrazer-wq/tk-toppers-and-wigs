@@ -180,6 +180,12 @@ def main() -> int:
     n_images = copy_tree(PUBLIC / "images", DIST / "images", exclude_dirs=("real",))
     n_brand = copy_tree(PUBLIC / "brand", DIST / "brand")
 
+    # Main-site (tatianakarelina.co.uk) redesign previews — self-contained
+    # pages in the TK main-site design system, served under /main/.
+    main_src = SITE_ROOT / "main-site"
+    if main_src.exists():
+        copy_tree(main_src, DIST / "main")
+
     n_root_files = 0
     for name in ("sitemap.xml", "robots.txt", "favicon.ico"):
         src = PUBLIC / name
