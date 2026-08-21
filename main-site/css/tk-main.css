@@ -151,7 +151,7 @@ main li { text-align: justify; hyphens: none; }
    -------------------------------------------------------------------------- */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
 .split-media img { width: 100%; height: 595px; object-fit: cover; }
-.split-media--card img { height: auto; object-fit: contain; }
+.split-media.split-media--card img { height: auto; object-fit: contain; }
 .split--reverse .split-media { order: 2; }
 .split-copy h2 { text-align: left; }
 .split-copy .eyebrow, .split-copy .eyebrow-rule { text-align: center; }
