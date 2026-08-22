@@ -1,20 +1,9 @@
 /* ==========================================================================
    Tatiana Karelina · Main site design system (tatianakarelina.co.uk)
-   Tokens extracted from the live Elementor build. See tk-design-system.
-   Butler is self hosted on the live domain; Playfair Display renders in
-   previews and Butler takes over automatically once on the domain.
+   Headings: Playfair Display 400 (Google Fonts). Body: Poppins 300,
+   justified. Nav: Montserrat. This typography is the approved look and
+   replaces Butler across the site.
    ========================================================================== */
-
-@font-face {
-  font-family: "Butler";
-  src: url("https://tatianakarelina.co.uk/wp-content/uploads/2025/07/Butler.woff") format("woff");
-  font-weight: 400; font-display: swap;
-}
-@font-face {
-  font-family: "Butler";
-  src: url("https://tatianakarelina.co.uk/wp-content/uploads/2025/07/Butler-Light.woff") format("woff");
-  font-weight: 300; font-display: swap;
-}
 
 :root {
   --black: #000000;
@@ -23,7 +12,7 @@
   --paper: #FFFFFF;
   --soft: #F5F5F5;
   --band: rgba(255, 255, 255, 0.54); /* #FFFFFF8A */
-  --serif: "Butler", "Playfair Display", Georgia, serif;
+  --serif: "Playfair Display", Georgia, serif;
   --sans: "Poppins", Arial, sans-serif;
   --nav: "Montserrat", Arial, sans-serif;
   --container: 1200px;

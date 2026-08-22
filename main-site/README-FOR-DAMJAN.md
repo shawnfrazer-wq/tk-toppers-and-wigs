@@ -79,10 +79,10 @@ which is the wrong signal for a UK business).
   way when transcribing.
 
 ## Fonts
-Headings: Butler, already self hosted on the live site at
-/wp-content/uploads/2025/07/Butler.woff (see the @font-face in css/tk-main.css).
-Playfair Display is only a preview fallback and is not needed on the domain.
-Body: Poppins (300/400/600). Nav: Montserrat. Both via Google Fonts.
+Headings: Playfair Display 400 (Google Fonts). This is the approved heading
+font for the redesign and REPLACES Butler everywhere, including on pages that
+are not being rebuilt yet. Body: Poppins (300/400/600), justified. Nav:
+Montserrat. All via Google Fonts.
 
 ## Images — all in the images/ folder
 - images/ba/ — before and after photos. SAME filenames as the existing
