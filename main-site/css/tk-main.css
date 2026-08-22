@@ -397,3 +397,9 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 
 .press-strip { padding: 46px 0 8px; text-align: center; }
 .press-strip img { max-width: 900px; width: 100%; height: auto; margin: 22px auto 0; display: block; }
+
+/* Homepage services carousel: two large cards in view, like the live site */
+.svc-row .svc-card { flex: 0 0 calc((100% - 20px) / 2); scroll-snap-align: start; }
+.svc-row .svc-card img { aspect-ratio: 5 / 4; }
+@media (max-width: 767px) { .svc-row .svc-card { flex: 0 0 100%; } }
+.page-hero-band .band-sub { font-family: var(--serif); font-size: 17px; color: #333333; margin: 4px auto 2px; text-align: center; }
