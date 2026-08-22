@@ -363,3 +363,33 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 
 /* Anchor offset for in-page links */
 [id] { scroll-margin-top: 90px; }
+
+/* --------------------------------------------------------------------------
+   Homepage and salon pages
+   -------------------------------------------------------------------------- */
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 28px; }
+.svc-grid--two { grid-template-columns: repeat(3, 1fr); max-width: 1160px; margin: 0 auto; }
+.svc-card { display: flex; flex-direction: column; }
+.svc-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.svc-card h3 { font-family: var(--serif); font-weight: 400; font-size: 22px; color: var(--black); margin: 18px 0 2px; }
+.svc-card .svc-outcome { font-family: var(--sans); font-weight: 400; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink2); margin: 0 0 10px; }
+.svc-card p { font-size: 13.5px; margin: 0 0 12px; }
+.svc-card .svc-link { font-family: var(--sans); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); text-decoration: underline; text-underline-offset: 4px; margin-top: auto; }
+@media (max-width: 900px) { .svc-grid, .svc-grid--two { grid-template-columns: 1fr; gap: 40px; } }
+
+.manifesto { padding: 74px 0; }
+.manifesto blockquote { margin: 0 auto; max-width: 880px; padding: 0 20px; text-align: center; }
+.manifesto blockquote p { font-family: var(--serif); font-size: clamp(24px, 3vw, 36px); line-height: 1.4; color: var(--black); text-align: center; margin: 0; }
+.manifesto .manifesto-note { font-family: var(--sans); font-weight: 300; font-size: 14.5px; color: var(--ink2); margin-top: 18px; text-align: center; }
+.manifesto .manifesto-note a { color: var(--black); }
+
+.quote-band { max-width: 860px; margin: 44px auto 0; padding: 0 20px; text-align: center; }
+.quote-band p.q { font-family: var(--serif); font-size: 20px; line-height: 1.55; color: var(--black); text-align: center; margin: 0; }
+.quote-band p.q-name { font-family: var(--sans); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink2); margin: 14px 0 0; text-align: center; }
+
+.rating-line { text-align: center; font-family: var(--sans); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink2); margin: 0 0 30px; }
+.rating-line strong { color: var(--black); letter-spacing: 0.14em; }
+
+.detail-list { max-width: 760px; margin: 0 auto; }
+.detail-list dt { font-family: var(--serif); font-size: 17px; color: var(--black); margin-top: 22px; }
+.detail-list dd { margin: 4px 0 0; font-size: 14.5px; }
