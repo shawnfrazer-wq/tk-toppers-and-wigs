@@ -190,7 +190,7 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 @media (max-width: 767px) { .price-jump { position: static; } }
 
 /* Collapsible price categories — all content stays in the HTML for Google */
-.pcat { border-bottom: 1px solid #E3E3E3; }
+.pcat { border-bottom: 1px solid #E3E3E3; scroll-margin-top: 78px; }
 .pcat:first-of-type { border-top: 1px solid #E3E3E3; }
 .pcat summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 24px 0; }
 .pcat summary::-webkit-details-marker { display: none; }

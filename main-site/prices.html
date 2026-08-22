@@ -540,9 +540,16 @@
   window.addEventListener('hashchange', openTarget);
   openTarget();
   var cats = document.querySelectorAll('.pcat');
+  var userTouched = false;
+  document.addEventListener('pointerdown', function () { userTouched = true; }, { once: true });
+  document.addEventListener('keydown', function () { userTouched = true; }, { once: true });
   cats.forEach(function (d) {
     d.addEventListener('toggle', function () {
-      if (d.open) cats.forEach(function (o) { if (o !== d && o.open) o.open = false; });
+      if (!d.open) return;
+      cats.forEach(function (o) { if (o !== d && o.open) o.open = false; });
+      if (userTouched) requestAnimationFrame(function () {
+        d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     });
   });
 })();
