@@ -340,6 +340,9 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 .cta-band { background: #FFFFFF; color: var(--body); text-align: center; padding: 72px 20px; }
 .cta-band h2 { color: var(--black); text-align: center; }
 .cta-band p { text-align: justify !important; max-width: 620px; margin: 0 auto 24px; }
+.cta-band .cta-inner { width: fit-content; max-width: min(920px, 100%); margin: 0 auto; }
+.cta-band .cta-inner h2 { white-space: normal; }
+.cta-band .cta-inner p { max-width: none; width: 0; min-width: 100%; }
 .cta-band .btn { background: var(--black); color: #FFFFFF; border-color: var(--black); }
 
 /* --------------------------------------------------------------------------
