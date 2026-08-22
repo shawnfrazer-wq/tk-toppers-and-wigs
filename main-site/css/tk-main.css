@@ -440,9 +440,12 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
   width: 9px; height: 5px; border-left: 2px solid #FFFFFF; border-bottom: 2px solid #FFFFFF;
   transform: rotate(-45deg);
 }
-.salon-map { width: 100%; height: 470px; border: 0; display: block; }
-@media (max-width: 900px) { .salon-map { height: 360px; } }
+.salon-map { display: block; width: 100%; }
+.salon-map img { width: 100%; height: 470px; object-fit: cover; display: block; }
+@media (max-width: 900px) { .salon-map img { height: 320px; } }
 
 .press-note { max-width: 760px; margin: 22px auto 0; text-align: center; font-size: 13px; color: var(--body); }
 .split-copy .svc-outcome { font-family: var(--sans); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink2); margin: -6px 0 14px; text-align: left; }
 .split-copy .svc-outcome + p { margin-top: 0; }
+
+.section-heading--wide { max-width: 1100px; }
