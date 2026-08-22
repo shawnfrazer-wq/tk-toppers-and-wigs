@@ -394,3 +394,6 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 .detail-list { max-width: 760px; margin: 0 auto; }
 .detail-list dt { font-family: var(--serif); font-size: 17px; color: var(--black); margin-top: 22px; }
 .detail-list dd { margin: 4px 0 0; font-size: 14.5px; }
+
+.press-strip { padding: 46px 0 8px; text-align: center; }
+.press-strip img { max-width: 900px; width: 100%; height: auto; margin: 22px auto 0; display: block; }
