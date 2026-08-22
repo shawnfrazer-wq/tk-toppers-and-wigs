@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tk-main.css?v=20260822">
+<link rel="stylesheet" href="css/tk-main.css?v=20260822b">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -534,9 +534,20 @@
     if (el && el.classList.contains('pcat')) el.open = true;
   }
   document.querySelectorAll('.price-jump a').forEach(function (a) {
-    a.addEventListener('click', function () {
-      var el = document.getElementById(a.getAttribute('href').replace('#', ''));
-      if (el) el.open = true;
+    a.addEventListener('click', function (e) {
+      /* replaceState instead of a normal hash jump so the browser back
+         button leaves the page rather than stepping through the charts */
+      e.preventDefault();
+      var id = a.getAttribute('href').replace('#', '');
+      var el = document.getElementById(id);
+      if (el) {
+        history.replaceState(null, '', '#' + id);
+        if (el.open) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          el.open = true;
+        }
+      }
     });
   });
   window.addEventListener('hashchange', openTarget);

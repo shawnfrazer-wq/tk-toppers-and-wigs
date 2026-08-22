@@ -281,9 +281,13 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 }
 .ba-row::-webkit-scrollbar { display: none; }
 .ba-card { flex: 0 0 100%; scroll-snap-align: start; margin: 0; }
-@media (min-width: 640px) { .ba-card { flex: 0 0 calc((100% - 20px) / 2); } }
-@media (min-width: 1024px) { .ba-card { flex: 0 0 calc((100% - 3 * 20px) / 4); } }
-.ba-card img { width: 100%; height: auto; }
+@media (min-width: 768px) { .ba-card { flex: 0 0 calc((100% - 2 * 20px) / 3); } }
+@media (min-width: 1025px) { .ba-card { flex: 0 0 calc((100% - 3 * 20px) / 4); } }
+.ba-card img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
+/* Match the live site thumbnail size: the carousel spans the wide 1360px
+   wrap so cards render about 320px square at 4 across on desktop
+   (3 across tablet, 1 across mobile), same as the main site swiper. */
+.container:has(.ba-wrap) { max-width: 1360px; }
 .ba-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--black);
