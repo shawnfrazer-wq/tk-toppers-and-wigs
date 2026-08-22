@@ -187,6 +187,23 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 .price-jump .btn { padding: 9px 16px; font-size: 11px; }
 @media (max-width: 767px) { .price-jump { position: static; } }
 
+/* Collapsible price categories — all content stays in the HTML for Google */
+.pcat { border-bottom: 1px solid #E3E3E3; }
+.pcat:first-of-type { border-top: 1px solid #E3E3E3; }
+.pcat summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 24px 0; }
+.pcat summary::-webkit-details-marker { display: none; }
+.pcat summary h2 { margin: 0; font-size: 27px; text-align: left; }
+.pcat summary .pcat-sub { display: block; font-family: var(--sans); font-weight: 400; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--body); margin-top: 6px; }
+.pcat summary .pcat-toggle {
+  flex: 0 0 auto; width: 34px; height: 34px; border: 1px solid var(--black); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-weight: 300; font-size: 20px; line-height: 1; color: var(--black);
+}
+.pcat summary .pcat-toggle::before { content: "+"; }
+.pcat[open] summary .pcat-toggle::before { content: "\2013"; }
+.pcat-body { padding: 4px 0 40px; }
+@media (max-width: 640px) { .pcat summary h2 { font-size: 21px; } .pcat summary { padding: 18px 0; } }
+
 /* --------------------------------------------------------------------------
    Giveaway — application form, countdown, recipients
    -------------------------------------------------------------------------- */
@@ -320,7 +337,7 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
    -------------------------------------------------------------------------- */
 .cta-band { background: #FFFFFF; color: var(--body); text-align: center; padding: 72px 20px; }
 .cta-band h2 { color: var(--black); text-align: center; }
-.cta-band p { text-align: center !important; max-width: 620px; margin: 0 auto 24px; }
+.cta-band p { text-align: justify !important; max-width: 620px; margin: 0 auto 24px; }
 .cta-band .btn { background: var(--black); color: #FFFFFF; border-color: var(--black); }
 
 /* --------------------------------------------------------------------------
