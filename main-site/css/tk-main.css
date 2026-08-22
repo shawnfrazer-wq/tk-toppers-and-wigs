@@ -396,3 +396,9 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 .svc-card ul.kf { list-style: none; margin: 0 0 14px; padding: 12px 0 0; border-top: 1px solid #EFEFEF; }
 .svc-card ul.kf li { font-size: 12.5px; padding: 3px 0 3px 16px; position: relative; text-align: left; }
 .svc-card ul.kf li::before { content: ""; position: absolute; left: 0; top: 12px; width: 6px; height: 1px; background: var(--black); }
+
+.page-hero-band .band-tag { font-family: var(--serif); font-size: 16px; color: var(--ink2); margin: 0 auto 2px; text-align: center; }
+.rev-row { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 6px; }
+.rev-row::-webkit-scrollbar { display: none; }
+.rev-row .review-card { flex: 0 0 calc((100% - 2 * 20px) / 3); scroll-snap-align: start; }
+@media (max-width: 900px) { .rev-row .review-card { flex: 0 0 100%; } }
