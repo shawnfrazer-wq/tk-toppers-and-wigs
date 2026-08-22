@@ -166,5 +166,5 @@ live site already uses.
 - Timing is 8 to 12 weeks for custom pieces everywhere. Toppers £615 to
   £1,950, wigs £2,600 to £3,725, and the extension page price anchors match
   the price charts exactly.
-- The company describes 18 years of experience — use 18 consistently (the
-  live site mixes 18, almost 20, and two decades; we standardised on 18).
+- The company describes 20 years of experience — use 20 consistently (the
+  live site mixes several figures; we standardised on 20).
