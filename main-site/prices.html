@@ -547,9 +547,14 @@
     d.addEventListener('toggle', function () {
       if (!d.open) return;
       cats.forEach(function (o) { if (o !== d && o.open) o.open = false; });
-      if (userTouched) requestAnimationFrame(function () {
-        d.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+      if (userTouched) {
+        requestAnimationFrame(function () {
+          d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        setTimeout(function () {
+          if (d.open) d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 350);
+      }
     });
   });
 })();
