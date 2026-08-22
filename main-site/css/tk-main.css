@@ -172,6 +172,7 @@ main li { text-align: justify; hyphens: none; }
 .price-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 table.price-table { width: 100%; border-collapse: collapse; min-width: 420px; table-layout: fixed; }
 table.price-table th:first-child, table.price-table td:first-child { width: 26%; }
+table.price-table th:last-child, table.price-table td:last-child { width: 18%; }
 table.price-table th {
   font-family: var(--sans); font-weight: 600; font-size: 11px; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--black); padding: 12px 10px;
