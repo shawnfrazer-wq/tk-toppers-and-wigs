@@ -243,9 +243,10 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 .trust-value { display: block; font-family: var(--serif); font-size: 25px; line-height: 1.25; color: var(--black); }
 .trust-label { display: block; font-family: var(--sans); font-weight: 400; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--body); margin-top: 8px; }
 @media (max-width: 900px) {
-  .trust-strip { padding: 26px 0; }
-  .trust-strip ul { grid-template-columns: repeat(2, 1fr); gap: 22px 14px; }
-  .trust-value { font-size: 20px; }
+  .trust-strip { padding: 22px 0; }
+  .trust-strip ul { grid-template-columns: repeat(2, 1fr); gap: 20px 16px; align-items: start; }
+  .trust-value { font-size: 18px; line-height: 1.3; }
+  .trust-label { font-size: 9.5px; letter-spacing: 0.1em; margin-top: 5px; }
   .split--intro .split-media { order: 2; }
 }
 
@@ -384,7 +385,7 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 .manifesto .manifesto-note a { color: var(--black); }
 
 .quote-band { max-width: 860px; margin: 44px auto 0; padding: 0 20px; text-align: center; }
-.quote-band p.q { font-family: var(--serif); font-size: 20px; line-height: 1.55; color: var(--black); text-align: center; margin: 0; }
+.quote-band p.q { font-family: var(--serif); font-size: 20px; line-height: 1.55; color: var(--black); text-align: justify; margin: 0; }
 .quote-band p.q-name { font-family: var(--sans); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink2); margin: 14px 0 0; text-align: center; }
 
 .rating-line { text-align: center; font-family: var(--sans); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink2); margin: 0 0 30px; }
