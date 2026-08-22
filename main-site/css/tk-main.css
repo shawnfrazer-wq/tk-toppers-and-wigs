@@ -405,9 +405,9 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 
 /* Live homepage carousels: one item per slide, text one side, photo the other */
 .slide-wrap { position: relative; }
-.slide-row { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-.slide-row::-webkit-scrollbar { display: none; }
-.slide-row > .split { flex: 0 0 100%; scroll-snap-align: start; }
+.slide-wrap { overflow: hidden; }
+.slide-row { display: flex; gap: 0; transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
+.slide-row > .split { flex: 0 0 100%; min-width: 100%; }
 .svc-media { position: relative; }
 .svc-media img { width: 100%; height: 560px; object-fit: cover; }
 @media (max-width: 900px) { .svc-media img { height: 420px; } }
@@ -424,3 +424,21 @@ table.price-table td:first-child, table.price-table th:first-child { text-align:
 .split-copy ul.kf { list-style: disc; padding-left: 20px; margin: 0 0 22px; }
 .split-copy ul.kf li { text-align: left; font-size: 13.5px; padding: 2px 0; }
 .split-copy h3 { font-size: 30px; margin-bottom: 14px; }
+
+/* Ready to Transform: tick list and salon map */
+.ticks { list-style: none; margin: 26px 0 26px; padding: 0; }
+.ticks li {
+  position: relative; padding: 0 0 0 44px; margin-bottom: 18px;
+  font-family: var(--sans); font-size: 16px; color: var(--black); text-align: left;
+}
+.ticks li::before {
+  content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; border-radius: 50%; background: var(--black);
+}
+.ticks li::after {
+  content: ""; position: absolute; left: 8px; top: 50%; margin-top: -3px;
+  width: 9px; height: 5px; border-left: 2px solid #FFFFFF; border-bottom: 2px solid #FFFFFF;
+  transform: rotate(-45deg);
+}
+.salon-map { width: 100%; height: 470px; border: 0; display: block; }
+@media (max-width: 900px) { .salon-map { height: 360px; } }
