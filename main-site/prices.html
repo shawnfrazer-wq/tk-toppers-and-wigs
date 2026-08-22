@@ -74,7 +74,7 @@
 
 <section class="section" style="padding-top: 34px;">
   <div class="container">
-    <details class="pcat" id="micro-rings" open>
+    <details class="pcat" name="price-category" id="micro-rings" open>
       <summary><span><h2>Micro Ring Hair Extension Prices</h2><span class="pcat-sub">Fitting included</span></span><span class="pcat-toggle" aria-hidden="true"></span></summary>
       <div class="pcat-body">
     <div class="price-group">
@@ -115,7 +115,7 @@
   
       </div>
     </details>
-    <details class="pcat" id="micro-bonds">
+    <details class="pcat" name="price-category" id="micro-bonds">
       <summary><span><h2>Micro Bond Hair Extension Prices</h2><span class="pcat-sub">Fitting included</span></span><span class="pcat-toggle" aria-hidden="true"></span></summary>
       <div class="pcat-body">
     <div class="price-group">
@@ -156,7 +156,7 @@
   
       </div>
     </details>
-    <details class="pcat" id="tapes">
+    <details class="pcat" name="price-category" id="tapes">
       <summary><span><h2>Tape Hair Extension Prices</h2><span class="pcat-sub">Fitted at £120 per hour</span></span><span class="pcat-toggle" aria-hidden="true"></span></summary>
       <div class="pcat-body">
     <div class="price-group">
@@ -178,7 +178,7 @@
   
       </div>
     </details>
-    <details class="pcat" id="clip-ins">
+    <details class="pcat" name="price-category" id="clip-ins">
       <summary><span><h2>Clip In Hair Extension Prices</h2><span class="pcat-sub">Ready the same day or made to measure</span></span><span class="pcat-toggle" aria-hidden="true"></span></summary>
       <div class="pcat-body">
     <div class="price-group">
@@ -228,7 +228,7 @@
   
       </div>
     </details>
-    <details class="pcat" id="wefts">
+    <details class="pcat" name="price-category" id="wefts">
       <summary><span><h2>Weft Hair Extension Prices</h2><span class="pcat-sub">Fitted at £120 per hour</span></span><span class="pcat-toggle" aria-hidden="true"></span></summary>
       <div class="pcat-body">
     <div class="price-group">
@@ -265,7 +265,7 @@
   
       </div>
     </details>
-    <details class="pcat" id="toppers">
+    <details class="pcat" name="price-category" id="toppers">
       <summary><span><h2>Hair Topper Prices</h2><span class="pcat-sub">Made to measure over 8 to 12 weeks</span></span><span class="pcat-toggle" aria-hidden="true"></span></summary>
       <div class="pcat-body">
     <div class="price-group">
@@ -317,7 +317,7 @@
   
       </div>
     </details>
-    <details class="pcat" id="medical-wigs">
+    <details class="pcat" name="price-category" id="medical-wigs">
       <summary><span><h2>Medical Wig Prices</h2><span class="pcat-sub">Made to measure over 8 to 12 weeks</span></span><span class="pcat-toggle" aria-hidden="true"></span></summary>
       <div class="pcat-body">
     <div class="price-group">
@@ -340,7 +340,7 @@
   
       </div>
     </details>
-    <details class="pcat" id="accessories">
+    <details class="pcat" name="price-category" id="accessories">
       <summary><span><h2>Accessory Prices</h2><span class="pcat-sub">Ponytails, boosters and braids</span></span><span class="pcat-toggle" aria-hidden="true"></span></summary>
       <div class="pcat-body">
     <div class="price-group">
@@ -539,6 +539,12 @@
   });
   window.addEventListener('hashchange', openTarget);
   openTarget();
+  var cats = document.querySelectorAll('.pcat');
+  cats.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) cats.forEach(function (o) { if (o !== d && o.open) o.open = false; });
+    });
+  });
 })();
 </script>
 </body>
